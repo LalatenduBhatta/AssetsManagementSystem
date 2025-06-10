@@ -25,3 +25,12 @@ export const adminLogin = async (req, res, next) => {
         next(error)
     }
 }
+
+
+export const employeeLogin = async (req, res, next) => {
+    try {
+
+    } catch (error) {
+        next(error)
+    }
+}
