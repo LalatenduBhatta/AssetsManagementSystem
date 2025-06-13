@@ -1,5 +1,5 @@
 import express from "express"
-import { assignAsset, updateAssignedAsset } from "../controllers/adminController.js"
+import { assignAsset, returnAssignedAsset } from "../controllers/adminController.js"
 
 const adminRouter = express.Router()
 
@@ -8,7 +8,7 @@ const adminRouter = express.Router()
 adminRouter.post("/assign/asset", assignAsset)
 
 //update assigned asset
-adminRouter.put("/update/asset", updateAssignedAsset)
+adminRouter.put("/return/asset", returnAssignedAsset)
 
 
 

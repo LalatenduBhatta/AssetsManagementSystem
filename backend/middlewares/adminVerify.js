@@ -13,6 +13,6 @@ export const adminVerify = async (req, res, next) => {
             throw new Error("Invalid Admin Credential")
         }
     } catch (error) {
-        next(error)
+        throw new Error(error)
     }
 }
