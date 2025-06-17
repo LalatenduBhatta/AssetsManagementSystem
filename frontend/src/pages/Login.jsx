@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import axios from "axios"
+import { loginUser } from '../store/features/authThunk'
 
 const Login = () => {
     const [credentials, setCredentials] = useState({
@@ -10,20 +11,11 @@ const Login = () => {
     })
     const [error, setError] = useState('')
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (credentials.role == "admin") {
-            //admin login api
-            axios.post("http://localhost:8000/api/auth/admin/login", credentials)
-                .then((data) => console.log(data))
-                .catch((error) => console.log(error))
-        } else {
-            //employee login api
-            axios.post("http://localhost:8000/api/auth/employee/login", credentials)
-                .then((data) => console.log(data))
-                .catch((error) => console.log(error))
-        }
+        dispatch(loginUser(credentials)) //call the async redux thunk
     }
 
     const handleInputChange = (e) => {
