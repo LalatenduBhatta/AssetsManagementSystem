@@ -8,9 +8,8 @@ import dbConnect from "./config/dbConfig.js"
 import adminRouter from "./routes/adminRouter.js"
 import assetRouter from "./routes/assetRouter.js"
 import employeeRouter from "./routes/employeeRouter.js"
-import adminAuthRouter from "./routes/auth/adminAuthRouter.js"
-import employeeAuthRouter from "./routes/auth/employeeAuthRouter.js"
 import errorHandler from "./middlewares/errorHandeling.js"
+import authRouter from "./routes/authRouter.js"
 config()
 
 //server declaration
@@ -20,7 +19,12 @@ const app = express()
 app.use(express.json()) //json parser
 app.use(express.urlencoded({ extended: true }))//url data parser
 app.use(cookieParser()) //cookie data parser
-app.use(cors()) //cors policy resolve
+app.use(cors(
+    {
+        origin: 'http://localhost:5173', // frontend URL
+        credentials: true, // 👈 important for cookies
+    }
+)) //cors policy
 app.use(morgan("dev")) //http logger
 
 //demo route
@@ -30,8 +34,7 @@ app.get("/", (req, res) => res.send({ message: "Server is Working" }))
 app.use("/api/admin", adminRouter)
 app.use("/api/asset", assetRouter)
 app.use("/api/emplyoee", employeeRouter)
-app.use("/api/auth/admin", adminAuthRouter)
-app.use("/api/auth/employee", employeeAuthRouter)
+app.use("/api/auth", authRouter)
 
 //error bounding
 app.use(errorHandler)
