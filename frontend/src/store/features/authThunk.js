@@ -28,8 +28,7 @@ export const checkAuthStatus = createAsyncThunk(
             const res = await axios.get('http://localhost:8000/api/auth/me', {
                 withCredentials: true,
             });
-
-            return { user: res.data.user, role };
+            return { user: res.data.user, role: res.data.role };
         } catch (err) {
             return rejectWithValue('Not authenticated');
         }

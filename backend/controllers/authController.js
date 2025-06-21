@@ -66,11 +66,11 @@ export const getAuthStatus = async (req, res, next) => {
         if (role == "admin") {
             //get the admin data
             const adminDetails = await Admin.findById(id, { _id: 0, password: 0 })
-            return res.status(200).send(adminDetails)
+            return res.status(200).send({ user: adminDetails, role })
         } else if (role == "employee") {
             //get the employee data
             const employeeDetails = await Employee.findById(id, { _id: 0, password: 0, __v: 0 })
-            return res.status(200).send(employeeDetails)
+            return res.status(200).send({ user: employeeDetails, role })
         }
     } catch (error) {
         next(error)

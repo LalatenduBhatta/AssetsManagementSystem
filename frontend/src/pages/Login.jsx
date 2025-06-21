@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { loginUser } from '../store/features/authThunk'
+import { useSelector } from 'react-redux'
 
 const Login = () => {
     const [credentials, setCredentials] = useState({
@@ -9,9 +10,16 @@ const Login = () => {
         password: '',
         role: 'employee'
     })
-    const [error, setError] = useState('')
+    const { isAuthenticated, loading, error, role } = useSelector((store) => store.auth)
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate(`/${role}`)
+        }
+        //loader screen or toast logic
+    }, [isAuthenticated, loading, error, role])
 
     const handleSubmit = (e) => {
         e.preventDefault()
