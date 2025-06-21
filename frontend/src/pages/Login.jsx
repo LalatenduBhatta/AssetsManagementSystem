@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { loginUser } from '../store/features/authThunk'
+import { checkAuthStatus, loginUser } from '../store/features/authThunk'
 import { useSelector } from 'react-redux'
 
 const Login = () => {
@@ -13,6 +13,10 @@ const Login = () => {
     const { isAuthenticated, loading, error, role } = useSelector((store) => store.auth)
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(checkAuthStatus())
+    }, [])
 
     useEffect(() => {
         if (isAuthenticated) {
